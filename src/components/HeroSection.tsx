@@ -234,11 +234,12 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
   const rewindBottomSlide = (1 - smoothstep(0.78, 0.88, scrollProgress)) * slideDistance;
   const bottomSlideY = scrollProgress < 0.50 ? forwardBottomSlide : rewindBottomSlide;
 
-  // 3. Rotation: rotates 0deg -> 180deg during expansion, holds, then rotates back to 0deg
-  const forwardRot = smoothstep(0.10, 0.38, scrollProgress);
-  const rewindRot = 1 - smoothstep(0.68, 0.85, scrollProgress);
-  const rotFactor = scrollProgress < 0.50 ? forwardRot : rewindRot;
-  const emblemRotation = rotFactor * 180;
+  // 3. Rotation: rotates 0deg -> 180deg (clockwise) during expansion,
+  // holds at 180deg during sacred breakdown,
+  // then continues rotating clockwise towards the right: 180deg -> 360deg (sitting in position)
+  const forwardRot = smoothstep(0.10, 0.38, scrollProgress) * 180;
+  const returnRot = 180 + smoothstep(0.68, 0.85, scrollProgress) * 180;
+  const emblemRotation = scrollProgress < 0.50 ? forwardRot : returnRot;
 
   // 4. Scale: scales up to focus on sacred geometry, holds, then scales back to 1.0
   const maxScaleMultiplier = isMobile ? 0.65 : 2.0;
