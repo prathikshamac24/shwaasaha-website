@@ -13,7 +13,7 @@ steps:
       - 'push'
       - 'asia-south1-docker.pkg.dev/$PROJECT_ID/shwaasaha-repo/shwaasaha-web:$BUILD_ID'
 
-  # Step 3: Deploy the image to Google Cloud Run
+  # Step 3: Deploy to Google Cloud Run in asia-southeast1 (where www.shwaasaha.com is mapped)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
@@ -23,12 +23,13 @@ steps:
       - '--image'
       - 'asia-south1-docker.pkg.dev/$PROJECT_ID/shwaasaha-repo/shwaasaha-web:$BUILD_ID'
       - '--region'
-      - 'asia-south1'
+      - 'asia-southeast1'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
       - '--port'
       - '8080'
+
 
 # Track and register the built image in Cloud Build
 images:
