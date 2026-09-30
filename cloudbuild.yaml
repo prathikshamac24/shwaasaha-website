@@ -1,0 +1,35 @@
+steps:
+  # Step 1: Build the Docker image using the existing multi-stage Dockerfile
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'asia-south1-docker.pkg.dev/$PROJECT_ID/shwaasaha-repo/shwaasaha-web:$BUILD_ID'
+      - '.'
+
+  # Step 2: Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'asia-south1-docker.pkg.dev/$PROJECT_ID/shwaasaha-repo/shwaasaha-web:$BUILD_ID'
+
+  # Step 3: Deploy the image to Google Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'shwaasaha-web'
+      - '--image'
+      - 'asia-south1-docker.pkg.dev/$PROJECT_ID/shwaasaha-repo/shwaasaha-web:$BUILD_ID'
+      - '--region'
+      - 'asia-south1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+
+# Track and register the built image in Cloud Build
+images:
+  - 'asia-south1-docker.pkg.dev/$PROJECT_ID/shwaasaha-repo/shwaasaha-web:$BUILD_ID'
