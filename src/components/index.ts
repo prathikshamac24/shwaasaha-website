@@ -1,0 +1,14 @@
+export { default as Navbar } from "./Navbar";
+export { default as HeroSection } from "./HeroSection";
+export { default as ConnectionSection } from "./ConnectionSection";
+export { default as DifferenceSection } from "./DifferenceSection";
+export { default as YogaMatGraphic } from "./YogaMatGraphic";
+export { default as PersonArisingSection } from "./PersonArisingSection";
+export { default as WhatWeDoSection } from "./WhatWeDoSection";
+export { default as WhoIsThisForSection } from "./WhoIsThisForSection";
+export { default as RealPracticeSection } from "./RealPracticeSection";
+export { default as GuideSection } from "./GuideSection";
+export { default as ConversationBridgeSection } from "./ConversationBridgeSection";
+export { default as OnlineBatchSection } from "./OnlineBatchSection";
+export { default as FinalSection } from "./FinalSection";
+export { default as WhatsAppModal } from "./WhatsAppModal";

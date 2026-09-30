@@ -1,40 +1,100 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Color Palette inspired by the SHWAASA Sacred Quad-Petal */
+  --color-awareness: #dfbe91;      /* Top Circle: Warm Ochre / Sandalwood / Surya */
+  --color-awareness-light: #f7ede0;
+  --color-breath: #9cb1b6;         /* Right Circle: Slate Sky / Ethereal Prana */
+  --color-breath-light: #e6eef0;
+  --color-movement: #a4a07b;       /* Left Circle: Muted Sage / Forest Earth */
+  --color-movement-light: #eef0e6;
+  --color-stillness: #df975f;      /* Bottom Circle: Terracotta Clay / Root */
+  --color-stillness-light: #faece3;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Deep Typography & Core Neutrals */
+  --color-brand-dark: #373322;     /* Extracted from original logo wordmark */
+  --color-text-primary: #2d291e;
+  --color-text-secondary: #5e5849;
+  --color-text-muted: #857e6d;
+  --color-text-faint: #aba494;
 
-html {
-  height: 100%;
-}
+  /* Surfaces & Backgrounds */
+  --color-bg: #faf7f2;             /* Organic linen cream */
+  --color-bg-alt: #f3ede2;         /* Warm clay wash */
+  --color-surface: #ffffff;
+  --color-surface-translucent: rgba(255, 255, 255, 0.75);
+  --color-surface-card: rgba(255, 255, 255, 0.88);
+  
+  --color-border: rgba(55, 51, 34, 0.12);
+  --color-border-subtle: rgba(55, 51, 34, 0.06);
+  --color-border-focus: rgba(223, 190, 145, 0.6);
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  /* WhatsApp & Action Accents */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-deep: #128c7e;
+  --color-cta: #373322;
+  --color-cta-hover: #1e1b12;
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Typography */
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(55, 51, 34, 0.04);
+  --shadow-md: 0 8px 24px rgba(55, 51, 34, 0.07);
+  --shadow-lg: 0 16px 40px rgba(55, 51, 34, 0.1);
+  --shadow-hover: 0 20px 48px rgba(55, 51, 34, 0.13);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* Layout */
+  --max-width-narrow: 760px;
+  --max-width-content: 1040px;
+  --max-width-wide: 1240px;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(223, 190, 145, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(156, 177, 182, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(223, 151, 95, 0.04) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Base Typography */
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  color: var(--color-brand-dark);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+p {
+  color: var(--color-text-secondary);
 }
 
 a {
@@ -42,8 +102,309 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: var(--radius-pill);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:active {
+  transform: translateY(0px) scale(0.98) !important;
+}
+
+.btn-primary {
+  background-color: var(--color-cta);
+  color: #faf7f2;
+  box-shadow: 0 4px 14px rgba(55, 51, 34, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-cta-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(55, 51, 34, 0.32);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-brand-dark);
+  border: 1.5px solid var(--color-brand-dark);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(55, 51, 34, 0.06);
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--color-brand-dark);
+  box-shadow: 0 6px 20px rgba(55, 51, 34, 0.1);
+}
+
+.btn-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+}
+
+.btn-whatsapp:hover {
+  background-color: #20ba5a;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+}
+
+/* Animations */
+@keyframes breathCycle {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.75;
   }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(223, 190, 145, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 16px rgba(223, 190, 145, 0);
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes matRollout {
+  from {
+    width: 80px;
+    opacity: 0.8;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes subtleAuraPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+.hero-anatomy-card {
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(55, 51, 34, 0.1);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: 0 10px 30px rgba(55, 51, 34, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+}
+
+.hero-anatomy-card:hover, .hero-anatomy-card.is-active {
+  background-color: #ffffff;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(55, 51, 34, 0.14);
+}
+
+/* Endless Photo Marquee */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  padding: 12px 0;
+}
+
+.marquee-inner {
+  display: flex;
+  flex-shrink: 0;
+  gap: 22px;
+  animation: marqueeScroll 36s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover .marquee-inner {
+  animation-play-state: paused;
+}
+
+/* Containers */
+.container-narrow {
+  max-width: var(--max-width-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.container-content {
+  max-width: var(--max-width-content);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.container-wide {
+  max-width: var(--max-width-wide);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
+/* Section Spacing */
+.section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  position: relative;
+  width: 100%;
+  overflow-x: clip;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container-narrow,
+  .container-content,
+  .container-wide {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .btn {
+    padding: 13px 24px;
+    font-size: 14px;
+  }
+  .hero-anatomy-card {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-narrow,
+  .container-content,
+  .container-wide {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .btn {
+    padding: 12px 18px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(223, 190, 145, 0.4);
+  color: var(--color-brand-dark);
+}
+
+/* ======================================================== */
+/* GLOBAL HOVER ANIMATIONS & MICRO-INTERACTIONS              */
+/* ======================================================== */
+
+/* Floating Luxury Mentor Button Pulse Animation */
+@keyframes mentorPulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(223, 190, 145, 0.4), 0 8px 28px rgba(30, 27, 19, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(223, 190, 145, 0), 0 12px 34px rgba(30, 27, 19, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(223, 190, 145, 0), 0 8px 28px rgba(30, 27, 19, 0.45);
+  }
+}
+
+.floating-mentor-btn {
+  animation: mentorPulseGlow 3.5s infinite ease-in-out;
+}
+
+.floating-mentor-btn:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 14px 38px rgba(30, 27, 19, 0.65) !important;
+  border-color: var(--color-awareness) !important;
+}
+
+/* Universal Card Hover Lifts */
+.card-hover,
+.batch-card,
+.mentor-card,
+.target-audience-card,
+.footer-contact-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
+}
+
+/* Pills & Tags Hover Micro-Lift */
+span[style*="borderRadius: var(--radius-pill)"],
+span[style*="border-radius: var(--radius-pill)"] {
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+span[style*="borderRadius: var(--radius-pill)"]:hover,
+span[style*="border-radius: var(--radius-pill)"]:hover {
+  transform: translateY(-1px);
+}
+
+/* Interactive Link Hover Transition */
+a {
+  transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
 }
