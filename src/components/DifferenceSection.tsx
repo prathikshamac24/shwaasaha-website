@@ -166,60 +166,7 @@ export default function DifferenceSection() {
           })}
         </div>
 
-        {/* The Golden Line */}
-        <div
-          style={{
-            maxWidth: "760px",
-            margin: "0 auto",
-            textAlign: "center",
-            padding: "clamp(28px, 5vw, 40px) clamp(16px, 4vw, 32px)",
-            background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(250,247,242,0.9) 100%)",
-            border: "1px solid rgba(223, 190, 145, 0.4)",
-            borderRadius: "var(--radius-lg)",
-            boxShadow: "var(--shadow-md)",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: "-14px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              backgroundColor: "var(--color-brand-dark)",
-              color: "#faf7f2",
-              padding: "4px 16px",
-              borderRadius: "var(--radius-pill)",
-              fontSize: "11px",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              fontWeight: 600,
-            }}
-          >
-            The SHWAASA: Core
-          </div>
 
-          <p
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "clamp(24px, 3.8vw, 34px)",
-              color: "var(--color-brand-dark)",
-              lineHeight: 1.45,
-              fontWeight: 500,
-            }}
-          >
-            The practice begins on the mat.
-            <br />
-            <span
-              style={{
-                color: "var(--color-stillness)",
-                fontWeight: 600,
-              }}
-            >
-              The real change happens in your life.
-            </span>
-          </p>
-        </div>
 
       </div>
       <style jsx>{`
@@ -227,7 +174,7 @@ export default function DifferenceSection() {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 20px;
-          margin-bottom: clamp(36px, 6vw, 64px);
+          margin-bottom: 0;
         }
         @media (max-width: 960px) {
           .difference-pillars-grid {

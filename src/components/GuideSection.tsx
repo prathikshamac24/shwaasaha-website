@@ -24,7 +24,7 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
     >
       <div className="container-content">
         {/* Section Header */}
-        <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto clamp(36px, 6vw, 60px)" }}>
+        <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto clamp(36px, 6vw, 60px)" }}>
           <div
             style={{
               display: "inline-flex",
@@ -37,14 +37,14 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
               fontSize: "11px",
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              fontWeight: 600,
-              color: "var(--color-text-muted)",
+              fontWeight: 700,
+              color: "var(--color-brand-dark)",
               marginBottom: "16px",
               boxShadow: "var(--shadow-sm)",
             }}
           >
             <Sparkles size={12} style={{ color: "var(--color-stillness)" }} />
-            <span>Meet Your Mentors</span>
+            <span>Actual Yoga Practitioners</span>
           </div>
 
           <h2
@@ -56,7 +56,7 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
               lineHeight: 1.15,
             }}
           >
-            Guided by Decades of Authentic Practice
+            Learn From Actual Yoga Practitioners
           </h2>
 
           <p
@@ -66,9 +66,9 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
               lineHeight: 1.6,
             }}
           >
-            You are not learning from an algorithm, a workout tracker, or a fast-paced fitness gym.
+            You are not learning yoga online from an algorithm, a fitness influencer, or pre-recorded videos.
             <br />
-            You are guided by seasoned practitioners devoted to your long-term health, breath, and inner peace.
+            You are guided live by actual yoga practitioners devoted to your long-term health, alignment, breath, and inner peace.
           </p>
         </div>
 
@@ -179,7 +179,7 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
                     marginBottom: "18px",
                   }}
                 >
-                  Lead Guide • 12+ Years of Learning & Teaching
+                  Actual Yoga Practitioner & Lead Guide • 12+ Years of Practice
                 </p>
 
                 {/* Quote Callout */}
@@ -215,7 +215,7 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
                     marginBottom: "24px",
                   }}
                 >
-                  With over 12 years of deep study rooted in authentic Indian knowledge systems, Chethan specializes across Yoga, Vedanta, and traditional Sanskrit. He translates profound scriptural wisdom into practical, compassionate daily practice tailored for modern lifestyles, desk-bound strain, and cognitive fatigue.
+                  With over 12 years of deep study rooted in authentic Indian knowledge systems, Chethan specializes across Yoga, Vedanta, and traditional Sanskrit. As an actual yoga practitioner conducting our live yoga online sessions, he translates profound scriptural wisdom into practical, compassionate daily practice tailored for modern lifestyles, desk-bound strain, and cognitive fatigue.
                 </p>
 
                 {/* Guidance Areas */}
@@ -315,7 +315,7 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
                     marginBottom: "18px",
                   }}
                 >
-                  Senior Acharya & Master Teacher • Decades of Devoted Practice
+                  Actual Yoga Practitioner & Master Teacher • Decades of Devoted Practice
                 </p>
 
                 {/* Quote Callout */}
@@ -351,7 +351,7 @@ export default function GuideSection({ onOpenTalk }: GuideProps) {
                     marginBottom: "24px",
                   }}
                 >
-                  Practicing yoga for decades, Indira Yadav has guided and transformed the lives of thousands of students across all walks of life—elders, homemakers, working professionals, and beginners. Her deeply nurturing, compassionate presence teaches you to listen to your body, dissolve chronic stiffness, and experience lasting vitality through authentic Indian wisdom.
+                  Practicing yoga for decades, Indira Yadav has guided and transformed the lives of thousands of seekers. As an actual yoga practitioner guiding our community, her deeply nurturing, compassionate presence teaches you to listen to your body, dissolve chronic stiffness, and experience lasting vitality through live, authentic yoga online.
                 </p>
 
                 {/* Guidance Areas */}

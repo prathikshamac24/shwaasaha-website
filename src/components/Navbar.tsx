@@ -32,10 +32,10 @@ export default function Navbar({ onOpenTalk }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navLinks = [
+    { label: "Yoga Online Batch", href: "#online-batch", isPill: true },
+    { label: "Actual Practitioners", href: "#the-guide" },
     { label: "Why SHWAASA:", href: "#why-shwaasa" },
-    { label: "Online Batch", href: "#online-batch", isPill: true },
     { label: "What We Do", href: "#what-we-do" },
-    { label: "Mentors", href: "#the-guide" },
   ];
 
   return (
@@ -122,10 +122,10 @@ export default function Navbar({ onOpenTalk }: NavbarProps) {
                   letterSpacing: "0.12em",
                   color: "var(--color-text-muted)",
                   textTransform: "uppercase",
-                  fontWeight: 500,
+                  fontWeight: 600,
                 }}
               >
-                Breathe Into Your True Self
+                Authentic Yoga Online
               </span>
             </div>
           </a>
@@ -185,11 +185,11 @@ export default function Navbar({ onOpenTalk }: NavbarProps) {
           {/* Right Action */}
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <button
-              onClick={() => onOpenTalk("Navbar CTA")}
+              onClick={() => onOpenTalk("Navbar CTA: Join Yoga Online")}
               className="btn btn-primary nav-talk-btn"
               style={{
                 padding: "8px 20px",
-                fontSize: "12.5px",
+                fontSize: "12px",
                 letterSpacing: "0.07em",
                 borderRadius: "var(--radius-pill)",
                 display: "inline-flex",
@@ -198,7 +198,7 @@ export default function Navbar({ onOpenTalk }: NavbarProps) {
                 boxShadow: "0 2px 10px rgba(55, 51, 34, 0.15)",
               }}
             >
-              <span className="nav-btn-text">BEGIN PRACTICE</span>
+              <span className="nav-btn-text">JOIN YOGA ONLINE</span>
               <ArrowRight size={13} style={{ color: "var(--color-awareness)" }} />
             </button>
 
@@ -299,7 +299,7 @@ export default function Navbar({ onOpenTalk }: NavbarProps) {
               boxShadow: "0 6px 20px rgba(55, 51, 34, 0.25)",
             }}
           >
-            <span>BEGIN YOUR PRACTICE</span>
+            <span>JOIN YOGA ONLINE</span>
             <ArrowRight size={16} style={{ color: "var(--color-awareness)" }} />
           </button>
         </div>

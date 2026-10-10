@@ -64,35 +64,35 @@ export default function Home() {
       <Navbar onOpenTalk={handleOpenTalk} />
 
       <main>
-        {/* 2. Hero Section: FEEL */}
+        {/* 2. Hero Section: Authentic Yoga Online with immediate CTA */}
         <HeroSection onOpenTalk={handleOpenTalk} />
 
-        {/* 3. The Connection: FEEL & RECOGNIZE */}
+        {/* 3. The Connection: Desk stiffness, screen fatigue, and the need to pause */}
         <ConnectionSection onOpenTalk={handleOpenTalk} />
 
-        {/* 4. What Makes SHWAASA: Different: UNDERSTAND */}
-        <DifferenceSection />
-
-        {/* 5. Special Feature: Graphic of Yoga Mat unrolling in rectangular form & routine */}
-        <YogaMatGraphic />
-
-        {/* 6. Special Feature: Person Arising with human-shaped boundary filled with the 4 logo colors */}
-        <PersonArisingSection />
-
-        {/* 7. What We Do: Real Photographs from actual classes */}
-        <WhatWeDoSection />
-
-        {/* 8. Who Is This For: DISARM & WELCOME */}
-        <WhoIsThisForSection onOpenTalk={handleOpenTalk} />
-
-        {/* 9. Live Online Immersion Batch (Nov 1, ₹999 Early Bird) */}
+        {/* 4. THE MAIN POINT: Live Yoga Online Batch (Nov 1, ₹999 Early Bird) */}
         <OnlineBatchSection onOpenTalk={handleOpenTalk} />
 
-        {/* 10. Real People. Real Practice: TRUST */}
-        <RealPracticeSection />
-
-        {/* 11. Meet Your Mentors: TRUST & HUMAN CONNECTION (Chethan Yadav & Indira Yadav) */}
+        {/* 5. AUTHENTICITY: Meet Your Actual Yoga Practitioners (Chethan & Indira Yadav) */}
         <GuideSection onOpenTalk={handleOpenTalk} />
+
+        {/* 6. What Makes SHWAASA: Different: 4 Sacred Pillars (Asana, Prana, Chitta, Santi) */}
+        <DifferenceSection />
+
+        {/* 7. Special Feature: Graphic of Yoga Mat unrolling in rectangular form & routine */}
+        <YogaMatGraphic />
+
+        {/* 8. Special Feature: Person Arising with human-shaped boundary filled with the 4 logo colors */}
+        <PersonArisingSection />
+
+        {/* 9. What We Do: Real Photographs from actual classes */}
+        <WhatWeDoSection />
+
+        {/* 10. Who Is This For: Desk workers, beginners, stress recovery */}
+        <WhoIsThisForSection onOpenTalk={handleOpenTalk} />
+
+        {/* 11. Real People. Real Practice: TRUST & Testimonials */}
+        <RealPracticeSection />
 
         {/* 12. The WhatsApp Bridge: TALK */}
         <ConversationBridgeSection onOpenTalk={handleOpenTalk} />

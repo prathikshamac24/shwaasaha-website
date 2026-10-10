@@ -27,19 +27,19 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
   const batches = [
     {
       id: "morning",
-      title: "Morning Prana Awakening",
+      title: "Morning Yoga Online: Prana Awakening",
       time: "6:00 AM – 7:00 AM IST",
       type: "Exclusive Morning Slot",
       days: "Monday to Friday",
       icon: <Sun size={20} style={{ color: "var(--color-awareness)" }} />,
-      desc: "Our sole morning batch. Align with Brahma Muhurta to clear mental fog, awaken the spine, and build calm vitality before office or daily commitments begin.",
+      desc: "Our prime morning slot. Align with Brahma Muhurta to clear mental fog, awaken the spine, and build calm vitality before office or daily commitments begin.",
       badge: "Most Popular",
       badgeColor: "var(--color-awareness)",
       badgeBg: "var(--color-awareness-light)",
     },
     {
       id: "evening-1",
-      title: "Early Evening Decompression",
+      title: "Evening Yoga Online: Desk Decompression",
       time: "5:15 PM – 6:15 PM IST",
       type: "Evening Slot 1",
       days: "Monday to Friday",
@@ -51,7 +51,7 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
     },
     {
       id: "evening-2",
-      title: "Night Restorative & Breath",
+      title: "Night Yoga Online: Restorative & Breath",
       time: "6:30 PM – 7:30 PM IST",
       type: "Evening Slot 2",
       days: "Monday to Friday",
@@ -65,7 +65,7 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
 
   const handleEnroll = (batchTitle: string, batchTime: string) => {
     const text = encodeURIComponent(
-      `Hi! I would like to join the SHWAASA: Online Batch starting November 1 with the Early Bird Offer of ₹999. I am interested in the ${batchTitle} (${batchTime}). Please share the enrollment details.`
+      `Hi! I would like to join the SHWAASA: Live Yoga Online Batch starting November 1 with the Early Bird Offer of ₹999. I want to learn from actual yoga practitioners in the ${batchTitle} (${batchTime}). Please share the enrollment details.`
     );
     window.open(`https://wa.me/917676756216?text=${text}`, "_blank");
   };
@@ -110,7 +110,7 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
 
       <div className="container-content" style={{ position: "relative", zIndex: 2 }}>
         {/* Header Badge */}
-        <div style={{ textAlign: "center", maxWidth: "780px", margin: "0 auto clamp(36px, 6vw, 60px)" }}>
+        <div style={{ textAlign: "center", maxWidth: "820px", margin: "0 auto clamp(36px, 6vw, 60px)" }}>
           <div
             style={{
               display: "inline-flex",
@@ -130,7 +130,7 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
             }}
           >
             <Sparkles size={13} style={{ color: "var(--color-awareness)" }} />
-            <span>LIVE INTERACTIVE ONLINE BATCH • STARTING NOVEMBER 1</span>
+            <span>LIVE YOGA ONLINE • BATCH STARTS NOVEMBER 1</span>
           </div>
 
           <h2
@@ -142,7 +142,7 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
               lineHeight: 1.15,
             }}
           >
-            Authentic Lineage Yoga, From Your Own Living Room
+            Authentic Yoga Online: Learn From Actual Yoga Practitioners
           </h2>
 
           <p
@@ -150,11 +150,11 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
               fontSize: "clamp(16px, 2.2vw, 18px)",
               color: "var(--color-text-secondary)",
               lineHeight: 1.65,
-              maxWidth: "680px",
+              maxWidth: "700px",
               margin: "0 auto",
             }}
           >
-            We are opening our exclusive live online batches so that distance, heavy traffic, and packed work schedules are never an obstacle to your health, breath, and inner peace.
+            Experience authentic yoga online directly from your living room. Practice live with actual yoga practitioners who watch your camera, refine your alignment, and guide your breath in real time.
           </p>
         </div>
 
@@ -189,7 +189,7 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
                   marginBottom: "8px",
                 }}
               >
-                Why We Are Conducting Online Batches
+                Why Yoga Online with SHWAASA:
               </div>
               <h3
                 style={{
@@ -200,13 +200,13 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
                   lineHeight: 1.25,
                 }}
               >
-                Yoga was never meant to be confined by geography.
+                Learn directly from actual yoga practitioners, not fitness algorithms.
               </h3>
               <p style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--color-text-secondary)", marginBottom: "16px" }}>
-                Many seekers who connect with <strong>SHWAASA:</strong> crave authentic, traditional practice guided by seasoned teachers—not recorded fitness videos, fast-paced gym routines, or impersonal algorithm apps. Yet daily office commutes, family responsibilities, and living in different cities make attending in-person studios difficult.
+                Most online fitness platforms offer pre-recorded videos where no one checks your form, posture safety, or breath depth. At <strong>SHWAASA:</strong>, our live yoga online classes connect you directly to <strong>actual yoga practitioners</strong> with decades of dedicated study.
               </p>
               <p style={{ fontSize: "15px", lineHeight: 1.7, color: "var(--color-text-secondary)" }}>
-                In this batch, you receive <strong>live, real-time feedback</strong>, gentle posture adjustments, breath awareness, and personalized guidance directly into your home.
+                You get <strong>live, interactive two-way guidance</strong>, posture adjustments, breath awareness, and personalized attention—without wasting precious hours sitting in traffic.
               </p>
             </div>
 
@@ -224,25 +224,25 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
               <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <CheckCircle2 size={18} style={{ color: "var(--color-awareness)", flexShrink: 0, marginTop: "3px" }} />
                 <span style={{ fontSize: "14.5px", color: "var(--color-brand-dark)" }}>
-                  <strong>Live & Interactive:</strong> Not pre-recorded videos. Real-time guidance and posture safety.
+                  <strong>Actual Yoga Practitioners:</strong> Live two-way camera interaction with genuine lineage teachers.
                 </span>
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <CheckCircle2 size={18} style={{ color: "var(--color-breath)", flexShrink: 0, marginTop: "3px" }} />
                 <span style={{ fontSize: "14.5px", color: "var(--color-brand-dark)" }}>
-                  <strong>5 Days a Week:</strong> Monday to Friday for disciplined, compounding transformation.
+                  <strong>Live Yoga Online (5 Days/Wk):</strong> Monday to Friday for consistent, compounding daily vitality.
                 </span>
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <CheckCircle2 size={18} style={{ color: "var(--color-movement)", flexShrink: 0, marginTop: "3px" }} />
                 <span style={{ fontSize: "14.5px", color: "var(--color-brand-dark)" }}>
-                  <strong>Slot Freedom:</strong> Choose between morning or 2 evening slots to match your schedule.
+                  <strong>3 Convenient Online Slots:</strong> 6:00 AM, 5:15 PM, and 6:30 PM IST tailored for work schedules.
                 </span>
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <CheckCircle2 size={18} style={{ color: "var(--color-stillness)", flexShrink: 0, marginTop: "3px" }} />
                 <span style={{ fontSize: "14.5px", color: "var(--color-brand-dark)" }}>
-                  <strong>Personalized Attention:</strong> Small batch sizes to ensure each practitioner is guided safely.
+                  <strong>Personalized Attention:</strong> Focused, small batch sizes ensuring safety and authentic progression.
                 </span>
               </div>
             </div>
@@ -316,11 +316,11 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
                   lineHeight: 1.2,
                 }}
               >
-                November 1 Immersion Batch
+                Live Yoga Online — November 1 Batch
               </h3>
 
-              <p style={{ fontSize: "15px", color: "rgba(250, 247, 242, 0.8)", maxWidth: "540px", lineHeight: 1.6 }}>
-                Regular fee is ₹2,500. Secure your spot now with our <strong>Early Bird Offer of just ₹999</strong> for the complete month of guided practice (Monday to Friday).
+              <p style={{ fontSize: "15px", color: "rgba(250, 247, 242, 0.8)", maxWidth: "560px", lineHeight: 1.6 }}>
+                Learn from actual yoga practitioners every weekday. Regular fee is ₹2,500 — secure your live online spot today with our <strong>Early Bird Offer of just ₹999</strong> for the full month.
               </p>
             </div>
 
@@ -375,10 +375,10 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
                 marginBottom: "8px",
               }}
             >
-              Choose Your Preferred Batch Time
+              Choose Your Live Yoga Online Batch
             </h3>
             <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>
-              Classes run <strong>Monday to Friday</strong>. You are completely free to choose any slot that matches your rhythm:
+              Classes run <strong>Monday to Friday</strong> live on Zoom with actual yoga practitioners. Pick the slot that best fits your daily rhythm:
             </p>
           </div>
 
@@ -550,10 +550,10 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
                 marginBottom: "10px",
               }}
             >
-              Who Is The Online Batch For?
+              Who Is This Yoga Online Batch For?
             </h3>
             <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>
-              If you’ve hesitated to begin yoga because of inflexible schedules, distance, or self-consciousness, this sanctuary was created for you:
+              If you’ve hesitated to begin yoga because of traffic, distance, or intimidating gyms, learning authentic yoga online from actual practitioners was created for you:
             </p>
           </div>
 
@@ -568,22 +568,22 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
               {
                 icon: <Laptop size={22} style={{ color: "var(--color-awareness)" }} />,
                 title: "Tech & Corporate Professionals",
-                desc: "Counteract 8–10 hours of screen-bound posture, relieve upper back strain, compressed hips, and dissolve cognitive burnout without losing commuting time.",
+                desc: "Counteract 8–10 hours of screen-bound posture, relieve neck and back strain, and dissolve mental burnout with live yoga online right from home.",
               },
               {
                 icon: <Heart size={22} style={{ color: "var(--color-breath)" }} />,
                 title: "Homemakers & Caregivers",
-                desc: "An uninterrupted, sacred hour for your own replenishment right from home, leaving you deeply energized rather than exhausted by midday.",
+                desc: "An uninterrupted, sacred hour for your health and vitality without leaving family responsibilities or spending time commuting.",
               },
               {
                 icon: <ShieldCheck size={22} style={{ color: "var(--color-movement)" }} />,
                 title: "Complete Beginners & Seekers",
-                desc: "Never touched a yoga mat? No problem. We do not do acrobatics. We guide you step-by-step with joint safety, gentle breathing, and compassionate care.",
+                desc: "Never touched a yoga mat? No problem. Learn authentic yoga online from actual practitioners who gently teach alignment, joint safety, and breath.",
               },
               {
                 icon: <Users size={22} style={{ color: "var(--color-stillness)" }} />,
                 title: "Those Battling Stress & Shallow Breath",
-                desc: "Struggling with restless sleep or constant mental chatter? Learn the traditional science of Pranayama to reset your autonomic nervous system naturally.",
+                desc: "Overcome restless sleep, anxiety, or racing thoughts with authentic Pranayama techniques taught by actual yoga practitioners live.",
               },
             ].map((item, idx) => (
               <div
@@ -640,11 +640,11 @@ export default function OnlineBatchSection({ onOpenTalk }: OnlineBatchProps) {
                 border: "1px solid rgba(223, 190, 145, 0.35)",
               }}
             >
-              <span>CLAIM YOUR EARLY BIRD SPOT • ₹999</span>
+              <span>ENROLL IN YOGA ONLINE • ₹999</span>
               <ArrowRight size={18} style={{ color: "var(--color-awareness)" }} />
             </button>
             <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
-              Direct confirmation • Class starts November 1 • Limited early bird seats
+              Live on Zoom • Learn from actual yoga practitioners • Batch starts November 1
             </span>
           </div>
         </div>

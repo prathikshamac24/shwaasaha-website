@@ -128,6 +128,13 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
   const targetProgressRef = useRef<number>(0);
   const currentProgressRef = useRef<number>(0);
 
+  // Breathing animation refs & synchronization
+  const breathingWrapperRef = useRef<HTMLDivElement>(null);
+  const cycleStartRef = useRef<number>(Date.now());
+  const isScrollingRef = useRef<boolean>(false);
+  const scrollIdleTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const idleDampenRef = useRef<number>(1.0); // 1.0 = full idle breathing, 0.0 = scroll mode
+
   // Mobile detection for fluid viewport sizing
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
@@ -143,40 +150,38 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
   // Interactive Highlighting: which part is currently hovered
   const [activePart, setActivePart] = useState<EmblemPart["id"] | null>(null);
 
-  // Gentle breathing cycle pacer state
+  // Gentle breathing cycle pacer state (Inhale 3s -> Hold 3s -> Exhale 3s -> Pause 3s)
   const [breathPhase, setBreathPhase] = useState<"Inhale" | "Hold" | "Exhale" | "Pause">("Inhale");
-  const [breathCount, setBreathCount] = useState<number>(4);
+  const [breathCount, setBreathCount] = useState<number>(3);
 
-  // 1. Breathing Cycle Timer
+  // 1. Breathing Cycle Timer: synchronized with zero drift
   useEffect(() => {
-    const phases: { name: "Inhale" | "Hold" | "Exhale" | "Pause"; seconds: number }[] = [
-      { name: "Inhale", seconds: 4 },
-      { name: "Hold", seconds: 3 },
-      { name: "Exhale", seconds: 4 },
-      { name: "Pause", seconds: 3 },
-    ];
-
-    let currentPhaseIndex = 0;
-    let timer = phases[0].seconds;
+    const phaseNames: ("Inhale" | "Hold" | "Exhale" | "Pause")[] = ["Inhale", "Hold", "Exhale", "Pause"];
 
     const interval = setInterval(() => {
-      timer -= 1;
-      if (timer <= 0) {
-        currentPhaseIndex = (currentPhaseIndex + 1) % phases.length;
-        setBreathPhase(phases[currentPhaseIndex].name);
-        timer = phases[currentPhaseIndex].seconds;
-      }
-      setBreathCount(timer);
-    }, 1000);
+      const elapsed = (Date.now() - cycleStartRef.current) % 12000;
+      const currentPhaseIndex = Math.floor(elapsed / 3000);
+      const remainingSeconds = 3 - Math.floor((elapsed % 3000) / 1000);
+
+      setBreathPhase(phaseNames[currentPhaseIndex]);
+      setBreathCount(remainingSeconds);
+    }, 250);
 
     return () => clearInterval(interval);
   }, []);
 
-  // 2. High-performance scroll tracking with lerp animation loop
+  // 2. High-performance scroll tracking & lifelike breathing animation loop
   useEffect(() => {
     let animId: number;
 
     const handleScroll = () => {
+      // Mark active scroll movement
+      isScrollingRef.current = true;
+      if (scrollIdleTimerRef.current) clearTimeout(scrollIdleTimerRef.current);
+      scrollIdleTimerRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 160);
+
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
@@ -194,13 +199,50 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    // Smooth lerp loop for liquid 60/120fps transitions
+    // Smooth lerp loop for liquid 60/120fps transitions & organic idle breathing
     const updateLerp = () => {
       const diff = targetProgressRef.current - currentProgressRef.current;
       if (Math.abs(diff) > 0.0008) {
         currentProgressRef.current += diff * 0.14;
         setScrollProgress(currentProgressRef.current);
       }
+
+      // --- Lifelike Human Breathing Animation (when nobody is scrolling) ---
+      const now = Date.now();
+      const elapsed = (now - cycleStartRef.current) % 12000;
+
+      let breathProgress = 0; // 0.0 = resting baseline, 1.0 = peak expanded inhale
+      if (elapsed < 3000) {
+        // 1. Inhale (3s): gradual organic chest expansion
+        const t = elapsed / 3000;
+        breathProgress = t * t * (3 - 2 * t);
+      } else if (elapsed < 6000) {
+        // 2. Hold / Pause (3s): serene hold at peak expansion
+        breathProgress = 1.0;
+      } else if (elapsed < 9000) {
+        // 3. Exhale (3s): gradual natural release back to resting size
+        const t = (elapsed - 6000) / 3000;
+        breathProgress = 1.0 - t * t * (3 - 2 * t);
+      } else {
+        // 4. Pause (3s): stillness at baseline before the next inhale
+        breathProgress = 0.0;
+      }
+
+      // Idle breathing active only at hero rest (scrollProgress < 0.06) and when not actively scrolling
+      const atHeroRest = 1 - Math.max(0, Math.min(1, currentProgressRef.current / 0.055));
+      const targetIdleDampen = isScrollingRef.current ? 0.0 : atHeroRest;
+
+      // Smooth Hermite lerp for idle dampen prevents any abrupt snaps
+      idleDampenRef.current += (targetIdleDampen - idleDampenRef.current) * 0.10;
+
+      if (breathingWrapperRef.current) {
+        // More noticeable size increase (+18% on desktop, +15% on mobile) and shrink back to 1.0
+        const maxExpansion = isMobile ? 0.15 : 0.18;
+        const currentScale = 1.0 + breathProgress * maxExpansion * idleDampenRef.current;
+
+        breathingWrapperRef.current.style.transform = `scale(${currentScale})`;
+      }
+
       animId = requestAnimationFrame(updateLerp);
     };
 
@@ -208,9 +250,10 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (scrollIdleTimerRef.current) clearTimeout(scrollIdleTimerRef.current);
       cancelAnimationFrame(animId);
     };
-  }, []);
+  }, [isMobile]);
 
   // Helper function for silky smooth Hermite interpolation
   const smoothstep = (min: number, max: number, val: number): number => {
@@ -277,7 +320,7 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
       ref={containerRef}
       style={{
         position: "relative",
-        height: "360vh", // Generous track for exploration & full reverse rewind
+        height: "220vh", // Snappy track for exploration & graceful reverse rewind
         backgroundColor: "var(--color-bg)",
       }}
     >
@@ -409,7 +452,15 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
                       : breathPhase === "Exhale"
                       ? "var(--color-movement)"
                       : "var(--color-stillness)",
-                  transition: "background-color 0.5s ease",
+                  transform:
+                    breathPhase === "Inhale" || breathPhase === "Hold"
+                      ? "scale(1.25)"
+                      : "scale(0.95)",
+                  boxShadow:
+                    breathPhase === "Inhale" || breathPhase === "Hold"
+                      ? "0 0 8px rgba(184, 137, 74, 0.45)"
+                      : "none",
+                  transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               />
               <span
@@ -446,37 +497,35 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
               className="hero-tagline"
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: isMobile ? "13px" : "clamp(17px, 3vw, 26px)",
-                fontWeight: 500,
-                letterSpacing: isMobile ? "0.08em" : "0.16em",
+                fontSize: isMobile ? "13px" : "clamp(17px, 3vw, 24px)",
+                fontWeight: 600,
+                letterSpacing: isMobile ? "0.08em" : "0.14em",
                 textTransform: "uppercase",
                 color: "var(--color-brand-dark)",
-                marginBottom: isMobile ? "5px" : "8px",
+                marginBottom: isMobile ? "4px" : "6px",
               }}
             >
-              BREATHE INTO YOUR TRUE SELF
+              AUTHENTIC YOGA ONLINE
             </p>
 
-            {/* 4. Triad */}
+            {/* 4. Sub-Triad: Real Practitioners */}
             <div
               className="hero-triad"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: isMobile ? "8px" : "12px",
-                fontSize: isMobile ? "11px" : "13px",
+                gap: isMobile ? "6px" : "10px",
+                fontSize: isMobile ? "10.5px" : "12.5px",
                 fontWeight: 600,
-                letterSpacing: isMobile ? "0.08em" : "0.16em",
+                letterSpacing: isMobile ? "0.06em" : "0.10em",
                 textTransform: "uppercase",
-                color: "var(--color-text-muted)",
-                marginBottom: isMobile ? "8px" : "16px",
+                color: "var(--color-text-secondary)",
+                marginBottom: isMobile ? "8px" : "14px",
               }}
             >
-              <span>Yoga</span>
+              <span>Learn From Actual Yoga Practitioners</span>
               <span style={{ color: "var(--color-awareness)" }}>•</span>
-              <span>Breath</span>
-              <span style={{ color: "var(--color-breath)" }}>•</span>
-              <span>Awareness</span>
+              <span>Live On Zoom</span>
             </div>
           </div>
 
@@ -530,22 +579,37 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
               </div>
             </div>
 
-            {/* SVG RENDERING OF THE SACRED QUAD-PETAL EMBLEM */}
+            {/* BREATHING LOGO WRAPPER: Handles organic 3s-3s-3s-3s human breathing animation while idle */}
             <div
+              ref={breathingWrapperRef}
+              className="hero-logo-breathing-stage"
               style={{
                 position: "relative",
-                width: `${baseEmblemSize}px`,
-                height: `${baseEmblemSize}px`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transform: `rotate(${emblemRotation}deg) scale(${emblemScale})`,
                 transformOrigin: "center center",
                 willChange: "transform",
-                pointerEvents: "auto",
-                cursor: "pointer",
               }}
             >
+
+              {/* SVG RENDERING OF THE SACRED QUAD-PETAL EMBLEM */}
+              <div
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  width: `${baseEmblemSize}px`,
+                  height: `${baseEmblemSize}px`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transform: `rotate(${emblemRotation}deg) scale(${emblemScale})`,
+                  transformOrigin: "center center",
+                  willChange: "transform",
+                  pointerEvents: "auto",
+                  cursor: "pointer",
+                }}
+              >
               {/* ViewBox: 0 0 300 300, Center is (150, 150), Circle Radius R = 75 */}
               <svg
                 viewBox="0 0 300 300"
@@ -725,6 +789,7 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
                 )}
               </svg>
             </div>
+          </div>
 
             {/* MOBILE ONLY: 4-Circle Anatomy Matrix (Anchored directly below logo) */}
             <div
@@ -889,30 +954,29 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
               width: "100%",
             }}
           >
-            {/* Written Card (Placed cleanly a little below the logo in exact 3 lines) */}
+            {/* Written Card */}
             <div
               style={{
-                backgroundColor: "rgba(255, 255, 255, 0.75)",
+                backgroundColor: "rgba(255, 255, 255, 0.78)",
                 border: "1px solid rgba(55, 51, 34, 0.08)",
                 borderRadius: "var(--radius-md)",
-                padding: isMobile ? "12px 20px" : "16px 28px",
-                maxWidth: "480px",
-                margin: isMobile ? "22px auto 14px" : "28px auto 18px",
+                padding: isMobile ? "12px 18px" : "15px 26px",
+                maxWidth: "500px",
+                margin: isMobile ? "18px auto 14px" : "24px auto 16px",
                 backdropFilter: "blur(8px)",
                 boxShadow: "var(--shadow-sm)",
               }}
             >
               <p
                 style={{
-                  fontSize: isMobile ? "13.5px" : "clamp(15px, 2vw, 17px)",
+                  fontSize: isMobile ? "13px" : "15px",
                   color: "var(--color-text-primary)",
-                  lineHeight: 1.55,
+                  lineHeight: 1.5,
                   textAlign: "center",
                   margin: 0,
                 }}
               >
-                <span style={{ display: "block" }}>You don’t need to be flexible.</span>
-                <span style={{ display: "block" }}>You don’t need to know yoga.</span>
+                <span style={{ display: "block" }}>You don’t need to be flexible. You don’t need gym acrobatics.</span>
                 <strong
                   style={{
                     display: "block",
@@ -921,39 +985,67 @@ export default function HeroSection({ onOpenTalk }: HeroSectionProps) {
                     fontWeight: 600,
                   }}
                 >
-                  You just need to begin.
+                  Learn authentic yoga online from actual yoga practitioners.
                 </strong>
+                <span style={{ display: "block", fontSize: isMobile ? "12px" : "13.5px", color: "var(--color-text-secondary)", marginTop: "2px" }}>
+                  Live interactive batches on Zoom • Personal form guidance & classical breathwork
+                </span>
               </p>
             </div>
 
-            {/* Proper Luxury CTA Button */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? "6px" : "10px" }}>
-              <button
-                onClick={() => onOpenTalk("Hero Section CTA")}
-                className="btn btn-primary"
+            {/* Direct CTA Action to Online Batch */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: isMobile ? "8px" : "10px" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px" }}>
+                <a
+                  href="#online-batch"
+                  className="btn btn-primary"
+                  style={{
+                    fontSize: isMobile ? "13px" : "14.5px",
+                    padding: isMobile ? "13px 26px" : "16px 36px",
+                    letterSpacing: "0.08em",
+                    boxShadow: "0 8px 24px rgba(55, 51, 34, 0.22)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>JOIN YOGA ONLINE BATCH</span>
+                  <ArrowRight size={isMobile ? 15 : 17} style={{ color: "var(--color-awareness)" }} />
+                </a>
+
+                <button
+                  onClick={() => onOpenTalk("Hero Section: Talk to Us")}
+                  className="btn btn-secondary"
+                  style={{
+                    fontSize: isMobile ? "13px" : "14.5px",
+                    padding: isMobile ? "13px 22px" : "16px 28px",
+                    letterSpacing: "0.06em",
+                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                  }}
+                >
+                  <span>TALK TO US</span>
+                </button>
+              </div>
+
+              <div
                 style={{
-                  fontSize: isMobile ? "13px" : "14.5px",
-                  padding: isMobile ? "13px 30px" : "16px 42px",
-                  letterSpacing: "0.08em",
-                  boxShadow: "0 8px 24px rgba(55, 51, 34, 0.22)",
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "10px",
-                }}
-              >
-                <span>BEGIN YOUR PRACTICE</span>
-                <ArrowRight size={isMobile ? 15 : 17} style={{ color: "var(--color-awareness)" }} />
-              </button>
-
-              <span
-                style={{
-                  fontSize: isMobile ? "11.5px" : "12.5px",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  gap: "6px",
+                  fontSize: isMobile ? "11px" : "12.5px",
                   color: "var(--color-text-muted)",
-                  letterSpacing: "0.02em",
+                  letterSpacing: "0.03em",
                 }}
               >
-                Direct mentorship with Chethan & Indira • Beginners warmly welcomed
-              </span>
+                <span>Live Yoga Online batches begin November 1</span>
+                <span style={{ opacity: 0.4 }}>•</span>
+                <span>Early Bird ₹999</span>
+                <span style={{ opacity: 0.4 }}>•</span>
+                <span>Guided by Chethan & Indira</span>
+              </div>
             </div>
           </div>
         </div>

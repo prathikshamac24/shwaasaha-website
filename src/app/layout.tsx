@@ -11,19 +11,22 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.shwaasaha.com"),
-  title: "SHWAASA: — Breathe Into Your True Self | Yoga • Breath • Awareness",
+  title: "SHWAASA: — Authentic Yoga Online | Learn From Actual Yoga Practitioners",
   description:
-    "You don't need to be flexible. You don't need to know yoga. You just need to begin. Traditional Indian wisdom with Chethan & Indira Yadav for today's life.",
+    "Live authentic yoga online guided directly by actual yoga practitioners. Practice from home with live interactive posture corrections, breathwork, and traditional Indian lineage.",
   keywords: [
-    "Yoga",
-    "Pranayama",
+    "Yoga Online",
+    "Live Yoga Online",
+    "Online Yoga Classes",
+    "Learn From Actual Yoga Practitioners",
+    "Actual Yoga Practitioners",
+    "Pranayama Online",
     "Breathwork",
-    "Awareness",
-    "Stillness",
+    "Authentic Yoga",
     "SHWAASA:",
     "Chethan Yadav",
     "Indira Yadav",
-    "Meditation",
+    "Meditation Online",
   ],
   icons: {
     icon: [
@@ -36,9 +39,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "SHWAASA: — Breathe Into Your True Self",
+    title: "SHWAASA: — Authentic Yoga Online | Learn From Actual Yoga Practitioners",
     description:
-      "You don't need to be flexible. You don't need to know yoga. You just need to begin.",
+      "Live interactive yoga online guided directly by actual yoga practitioners. Start your practice from home today.",
     url: "https://www.shwaasaha.com",
     siteName: "SHWAASA:",
     images: [
@@ -46,7 +49,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1024,
         height: 1024,
-        alt: "SHWAASA: — Breathe Into Your True Self | Yoga • Breath • Awareness",
+        alt: "SHWAASA: — Authentic Yoga Online | Learn From Actual Yoga Practitioners",
         type: "image/png",
       },
     ],
@@ -55,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SHWAASA: — Breathe Into Your True Self",
+    title: "SHWAASA: — Authentic Yoga Online | Learn From Actual Yoga Practitioners",
     description:
-      "You don't need to be flexible. You don't need to know yoga. You just need to begin.",
+      "Live interactive yoga online guided directly by actual yoga practitioners. Start your practice from home today.",
     images: ["/og-image.png"],
   },
 };
